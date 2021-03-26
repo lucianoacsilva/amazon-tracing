@@ -1,0 +1,44 @@
+[
+    {
+        "transactionName": "positionExists",
+        "transactionLabel": "A test positionExists transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "createPosition",
+        "transactionLabel": "A test createPosition transaction",
+        "arguments": [
+            "001",
+            "some value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "readPosition",
+        "transactionLabel": "A test readPosition transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "updatePosition",
+        "transactionLabel": "A test updatePosition transaction",
+        "arguments": [
+            "001",
+            "some other value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "deletePosition",
+        "transactionLabel": "A test deletePosition transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    }
+]
