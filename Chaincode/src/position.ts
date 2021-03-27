@@ -8,6 +8,9 @@ import { Object, Property } from 'fabric-contract-api';
 export class Position {
 
     @Property()
+    public specimenId: string;
+
+    @Property()
     public latitude: Number;
 
     @Property()
