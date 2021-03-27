@@ -79,3 +79,5 @@ typings/
 # Compiled TypeScript files
 dist
 
+# Ignores env variables file
+Backend/env.js
