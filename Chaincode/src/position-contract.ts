@@ -3,80 +3,84 @@
  */
 
 import { Context, Contract, Info, Returns, Transaction } from 'fabric-contract-api';
-import { Position } from './position';
+import { Specimen } from './position';
 
-@Info({title: 'PositionContract', description: 'My Smart Contract' })
-export class PositionContract extends Contract {
+@Info({title: 'SpecimenContract', description: 'My Smart Contract' })
+export class SpecimenContract extends Contract {
 
     @Transaction(false)
     @Returns('boolean')
-    public async positionExists(ctx: Context, positionId: string): Promise<boolean> {
-        const buffer = await ctx.stub.getState(positionId);
+    public async specimenExists(ctx: Context, specimenId: string): Promise<boolean> {
+        const buffer = await ctx.stub.getState(specimenId);
         return (!!buffer && buffer.length > 0);
     }
 
     @Transaction()
-    public async createPosition(ctx: Context, positionId: string, specimenId: string, latitude: Number, longitude: Number, timestamp: string): Promise<void> {
-        const exists = await this.positionExists(ctx, positionId);
+    public async createSpecimen(ctx: Context, specimenId: string, latitude: Number, longitude: Number, timestamp: string): Promise<Specimen> {
+        const exists = await this.specimenExists(ctx, specimenId);
         if (exists) {
-            throw new Error(`The position ${positionId} already exists`);
+            throw new Error(`The specimen ${specimenId} already exists`);
         }
-        const position = new Position();
+        const specimen = new Specimen();
 
-        position.specimenId = specimenId;
-        position.latitude = latitude;
-        position.longitude = longitude;
-        position.timestamp = timestamp;
+        specimen.specimenId = specimenId;
+        specimen.latitude = latitude;
+        specimen.longitude = longitude;
+        specimen.timestamp = timestamp;
 
-        const buffer = Buffer.from(JSON.stringify(position));
-        await ctx.stub.putState(positionId, buffer);
+        const buffer = Buffer.from(JSON.stringify(specimen));
+        await ctx.stub.putState(specimenId, buffer);
+
+        return specimen;
     }
 
     @Transaction(false)
-    @Returns('Position')
-    public async readPosition(ctx: Context, positionId: string): Promise<Position> {
-        const exists = await this.positionExists(ctx, positionId);
+    @Returns('Specimen')
+    public async readSpecimen(ctx: Context, specimenId: string): Promise<Specimen> {
+        const exists = await this.specimenExists(ctx, specimenId);
         if (!exists) {
-            throw new Error(`The position ${positionId} does not exist`);
+            throw new Error(`The specimen ${specimenId} does not exist`);
         }
-        const buffer = await ctx.stub.getState(positionId);
-        const position = JSON.parse(buffer.toString()) as Position;
-        return position;
+        const buffer = await ctx.stub.getState(specimenId);
+        const specimen = JSON.parse(buffer.toString()) as Specimen;
+        return specimen;
     }
 
     @Transaction()
-    public async updatePosition(ctx: Context, positionId: string, latitude: Number, longitude: Number, timestamp: string): Promise<void> {
-        const exists = await this.positionExists(ctx, positionId);
+    public async updateSpecimen(ctx: Context, specimenId: string, latitude: Number, longitude: Number, timestamp: string): Promise<Specimen> {
+        const exists = await this.specimenExists(ctx, specimenId);
         if (!exists) {
-            throw new Error(`The position ${positionId} does not exist`);
+            throw new Error(`The specimen ${specimenId} does not exist`);
         }
 
-        // Reads current value of position
-        const currentPosition: Position = await this.readPosition(ctx, positionId);
+        // Reads current value of specimen
+        const currentSpecimen: Specimen = await this.readSpecimen(ctx, specimenId);
 
-        // newPosition to be updated
-        const newPosition = new Position();
+        // newSpecimen to be updated
+        const newSpecimen = new Specimen();
 
-        newPosition.specimenId = currentPosition.specimenId;
-        newPosition.latitude = latitude;
-        newPosition.longitude = longitude;
-        newPosition.timestamp = timestamp;
+        newSpecimen.specimenId = currentSpecimen.specimenId;
+        newSpecimen.latitude = latitude;
+        newSpecimen.longitude = longitude;
+        newSpecimen.timestamp = timestamp;
 
-        const buffer = Buffer.from(JSON.stringify(newPosition));
-        await ctx.stub.putState(positionId, buffer);
+        const buffer = Buffer.from(JSON.stringify(newSpecimen));
+        await ctx.stub.putState(specimenId, buffer);
+
+        return newSpecimen;
     }
 
     @Transaction()
-    public async deletePosition(ctx: Context, positionId: string): Promise<void> {
-        const exists = await this.positionExists(ctx, positionId);
+    public async deleteSpecimen(ctx: Context, specimenId: string): Promise<void> {
+        const exists = await this.specimenExists(ctx, specimenId);
         if (!exists) {
-            throw new Error(`The position ${positionId} does not exist`);
+            throw new Error(`The specimen ${specimenId} does not exist`);
         }
-        await ctx.stub.deleteState(positionId);
+        await ctx.stub.deleteState(specimenId);
     }
 
     @Transaction(false)
-    public async getHistoryOfAsset(ctx: Context, key: string): Promise<any[]> {
+    public async getHistoryOfSpecimen(ctx: Context, key: string): Promise<any[]> {
         const historyIterator = await ctx.stub.getHistoryForKey(key);
         const allResults = [];
 
@@ -108,7 +112,7 @@ export class PositionContract extends Contract {
     }
 
     @Transaction(false)
-    public async readAllAssets(ctx: Context): Promise<Position[]> {
+    public async readAllSpecimens(ctx: Context): Promise<Specimen[]> {
         // Query to get all assets
         const getAllQuery = {
             selector: {}

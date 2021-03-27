@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { PositionContract } from './position-contract';
-export { PositionContract } from './position-contract';
+import { SpecimenContract } from './position-contract';
+export { SpecimenContract } from './position-contract';
 
-export const contracts: any[] = [ PositionContract ];
+export const contracts: any[] = [ SpecimenContract ];

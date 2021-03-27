@@ -5,7 +5,7 @@
 import { Object, Property } from 'fabric-contract-api';
 
 @Object()
-export class Position {
+export class Specimen {
 
     @Property()
     public specimenId: string;
