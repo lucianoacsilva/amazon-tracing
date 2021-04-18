@@ -111,15 +111,14 @@ const readSpecimen = async function (req, res) {
 const createSpecimen = async function (req, res) {
     try {
         const {
+            specimenId,
             latitude,
-            longitude
+            longitude,
+            timestamp
         } = req.body;
 
-        // Generate random index
-        const specimenId = Math.floor(Math.random() * 100000).toString();
-        const timestamp = new Date(Date.now()).toISOString();
 
-        const arguments = [specimenId, latitude.toString(), longitude.toString(), timestamp]
+        const arguments = [specimenId, timestamp]
         
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(homedir, '.fabric-vscode', 'environments', envName, 'wallets', orgName);
@@ -146,7 +145,10 @@ const createSpecimen = async function (req, res) {
         const contract = network.getContract(ccName);
 
         // Evaluate the specified transaction.
-        const result = await contract.submitTransaction('createSpecimen', ...arguments);
+        const result = await contract.createTransaction('createSpecimen').setTransient({
+            latitude: Buffer.from(latitude.toString()),
+            longitude: Buffer.from(longitude.toString())
+        }).submit(...arguments);
         
         res.status(200).json({
             message: "Specimen created successfully",

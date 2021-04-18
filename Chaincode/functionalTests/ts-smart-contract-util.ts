@@ -25,7 +25,7 @@ export class SmartContractUtil {
         }
     }
 
-    public static async submitTransaction(contractName: string, functionName: string, args: string[], gateway): Promise<Buffer> {
+    public static async submitWriteTransaction(contractName: string, functionName: string, args: string[], gateway, latitude?: Number, longitude?: Number): Promise<Buffer> {
         // Submit transaction
         const network: fabricNetwork.Network = await gateway.getNetwork('mychannel');
         let contract: fabricNetwork.Contract;
@@ -35,7 +35,25 @@ export class SmartContractUtil {
             contract = await network.getContract('amazon-tracing');
         }
 
-        const responseBuffer: Buffer = await contract.submitTransaction(functionName, ...args);
+        const responseBuffer: Buffer = await contract.createTransaction(functionName).setTransient({
+            latitude: Buffer.from(latitude.toString()),
+            longitude: Buffer.from(longitude.toString())
+        }).submit(...args);
+        
+        return responseBuffer;
+    }
+
+    public static async submitReadTransaction(contractName: string, functionName: string, args: string[], gateway, privateValue?: string): Promise<Buffer> {
+        // Submit transaction
+        const network: fabricNetwork.Network = await gateway.getNetwork('mychannel');
+        let contract: fabricNetwork.Contract;
+        if (contractName !== '') {
+            contract = await network.getContract('amazon-tracing', contractName);
+        } else {
+            contract = await network.getContract('amazon-tracing');
+        }
+
+        const responseBuffer: Buffer = await contract.evaluateTransaction(functionName, ...args);
         return responseBuffer;
     }
 

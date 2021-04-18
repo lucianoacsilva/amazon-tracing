@@ -3,7 +3,8 @@
  */
 
 import { Context, Contract, Info, Returns, Transaction } from 'fabric-contract-api';
-import { Specimen } from './position';
+import { PublicSpecimen, Specimen } from './position';
+const myCollectionName: string = 'CollectionOne';
 
 @Info({title: 'SpecimenContract', description: 'My Smart Contract' })
 export class SpecimenContract extends Contract {
@@ -16,27 +17,49 @@ export class SpecimenContract extends Contract {
     }
 
     @Transaction()
-    public async createSpecimen(ctx: Context, specimenId: string, latitude: Number, longitude: Number, timestamp: string): Promise<Specimen> {
-        const exists = await this.specimenExists(ctx, specimenId);
-        if (exists) {
-            throw new Error(`The specimen ${specimenId} already exists`);
+    public async createSpecimen(ctx: Context, specimenId: string, timestamp: string): Promise<PublicSpecimen> {
+        const publicSpecimenData = new PublicSpecimen();
+        const privateSpecimen = new Specimen();
+
+        const transientData: Map<string, Buffer> = ctx.stub.getTransient();
+        if (transientData.size === 0 || !transientData.has("latitude") || !transientData.has("longitude")) {
+            throw new Error('The private fields not specified in transient data. Please try again.');
         }
-        const specimen = new Specimen();
 
-        specimen.specimenId = specimenId;
-        specimen.latitude = latitude;
-        specimen.longitude = longitude;
-        specimen.timestamp = timestamp;
+        // Fills public data
+        publicSpecimenData.specimenId = specimenId;
+        publicSpecimenData.timestamp = timestamp;
 
-        const buffer = Buffer.from(JSON.stringify(specimen));
-        await ctx.stub.putState(specimenId, buffer);
+        // Fills private data
+        privateSpecimen.specimenId = specimenId;
+        privateSpecimen.latitude = Number(transientData.get("latitude").toString("utf8"));
+        privateSpecimen.longitude = Number(transientData.get("longitude").toString("utf8"));
+        privateSpecimen.timestamp = timestamp;
 
-        return specimen;
+        const publicBuffer = Buffer.from(JSON.stringify(publicSpecimenData));
+        const privateBuffer = Buffer.from(JSON.stringify(privateSpecimen));
+
+        await ctx.stub.putState(specimenId, publicBuffer);
+        await ctx.stub.putPrivateData(myCollectionName, specimenId, Buffer.from(JSON.stringify(privateSpecimen)));
+
+        return publicSpecimenData;
     }
 
     @Transaction(false)
     @Returns('Specimen')
     public async readSpecimen(ctx: Context, specimenId: string): Promise<Specimen> {
+        const exists = await this.specimenExists(ctx, specimenId);
+        if (!exists) {
+            throw new Error(`The specimen ${specimenId} does not exist`);
+        }
+        const buffer = await ctx.stub.getPrivateData(myCollectionName, specimenId);
+        const specimen = JSON.parse(buffer.toString()) as Specimen;
+        return specimen;
+    }
+
+    @Transaction(false)
+    @Returns('PublicSpecimen')
+    public async readPublicSpecimenData(ctx: Context, specimenId: string): Promise<Specimen> {
         const exists = await this.specimenExists(ctx, specimenId);
         if (!exists) {
             throw new Error(`The specimen ${specimenId} does not exist`);

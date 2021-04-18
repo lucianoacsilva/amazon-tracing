@@ -20,3 +20,14 @@ export class Specimen {
     public timestamp: string;
 
 }
+
+@Object()
+export class PublicSpecimen {
+
+    @Property()
+    public specimenId: string;
+
+    @Property()
+    public timestamp: string;
+
+}

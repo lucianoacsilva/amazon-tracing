@@ -25,10 +25,10 @@ import { SmartContractUtil } from './ts-smart-contract-util';
 import * as os from 'os';
 import * as path from 'path';
 
-describe('SpecimenContract-amazon-tracing@0.0.4', () => {
+describe('SpecimenContract-amazon-tracing@0.0.6', () => {
 
     const homedir: string = os.homedir();
-    const walletPath: string = path.join(homedir, '.fabric-vscode', 'environments', 'TwoOrgEnv', 'wallets', 'Org2');
+    const walletPath: string = path.join(homedir, '.fabric-vscode', 'environments', 'TwoOrgEnv', 'wallets', 'Org1');
     const gateway: fabricNetwork.Gateway = new fabricNetwork.Gateway();
     const fabricWallet: fabricNetwork.FileSystemWallet = new fabricNetwork.FileSystemWallet(walletPath);
     const identityName: string = 'admin';
@@ -75,18 +75,28 @@ describe('SpecimenContract-amazon-tracing@0.0.4', () => {
     describe('createSpecimen', () => {
         it('should submit createSpecimen transaction', async () => {
             // TODO: populate transaction parameters
-            const specimenId: string = 'EXAMPLE5';
+            const specimenId: string = 'EXAMPLE15';
             const latitude: number = 0;
             const longitude: number = 0;
-            const timestamp: string = '13/05/2020';
+            const timestamp: string = 'EXAMPLE';
             const args: string[] = [specimenId, latitude.toString(), longitude.toString(), timestamp];
 
             const response: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'createSpecimen', args, gateway);
             // submitTransaction returns buffer of transcation return value
             // TODO: Update with return value of transaction
-            console.log(JSON.parse(response.toString()));
             assert.equal(true, true);
+
+            const newSpecimenId: string = 'EXAMPLE15';
+            const newLatitude: number = 32;
+            const newLongitude: number = 64;
+            const newtimestamp: string = 'EXAMPLE';
+            const newArgs: string[] = [newSpecimenId, newLatitude.toString(), newLongitude.toString(), newtimestamp];
+
+            const newResponse: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'createSpecimen', newArgs, gateway);
+
             // assert.equal(JSON.parse(response.toString()), undefined);
+
+            assert.equal(true, true);
         }).timeout(10000);
     });
 
@@ -96,7 +106,6 @@ describe('SpecimenContract-amazon-tracing@0.0.4', () => {
             const specimenId: string = 'EXAMPLE';
             const args: string[] = [specimenId];
 
-            console.log("OOOOIIIII");
             const response: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'readSpecimen', args, gateway);
             // submitTransaction returns buffer of transcation return value
             // TODO: Update with return value of transaction
@@ -108,16 +117,15 @@ describe('SpecimenContract-amazon-tracing@0.0.4', () => {
     describe('updateSpecimen', () => {
         it('should submit updateSpecimen transaction', async () => {
             // TODO: populate transaction parameters
-            const specimenId: string = 'EXAMPLE5';
-            const latitude: number = 2;
-            const longitude: number = 4;
-            const timestamp: string = 'gigigigigi';
+            const specimenId: string = 'EXAMPLE';
+            const latitude: number = 0;
+            const longitude: number = 0;
+            const timestamp: string = 'EXAMPLE';
             const args: string[] = [specimenId, latitude.toString(), longitude.toString(), timestamp];
 
             const response: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'updateSpecimen', args, gateway);
             // submitTransaction returns buffer of transcation return value
             // TODO: Update with return value of transaction
-            console.log(JSON.parse(response.toString()));
             assert.equal(true, true);
             // assert.equal(JSON.parse(response.toString()), undefined);
         }).timeout(10000);
@@ -126,7 +134,7 @@ describe('SpecimenContract-amazon-tracing@0.0.4', () => {
     describe('deleteSpecimen', () => {
         it('should submit deleteSpecimen transaction', async () => {
             // TODO: populate transaction parameters
-            const specimenId: string = 'EXAMPLE5';
+            const specimenId: string = 'EXAMPLE';
             const args: string[] = [specimenId];
 
             const response: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'deleteSpecimen', args, gateway);
@@ -140,14 +148,15 @@ describe('SpecimenContract-amazon-tracing@0.0.4', () => {
     describe('getHistoryOfSpecimen', () => {
         it('should submit getHistoryOfSpecimen transaction', async () => {
             // TODO: populate transaction parameters
-            const key: string = 'EXAMPLE5';
+            const key: string = 'EXAMPLE15';
             const args: string[] = [key];
 
             const response: Buffer = await SmartContractUtil.submitTransaction('SpecimenContract', 'getHistoryOfSpecimen', args, gateway);
             // submitTransaction returns buffer of transcation return value
             // TODO: Update with return value of transaction
-            console.log(JSON.parse(response.toString()));
             assert.equal(true, true);
+
+            console.log(JSON.parse(response.toString()));
             // assert.equal(JSON.parse(response.toString()), undefined);
         }).timeout(10000);
     });
