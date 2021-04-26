@@ -1,0 +1,26 @@
+---
+test:
+  name: my-create-asset-benchmark
+  description: Benchmarking for VS Code sample
+  workers:
+    type: local
+    number: 2
+  rounds:
+    - label: createPrivateAsset
+      description: Create private asset benchmark test
+      chaincodeId: amazon-tracing
+      txDuration: 30
+      rateControl:
+        type: fixed-backlog
+        opts:
+          unfinished_per_client: 2
+      callback: benchmarks/callbacks/createAssetBenchmark.js
+      arguments:
+        assets: 10
+
+monitor:
+  type:
+  - none
+observer:
+  type: local
+  interval: 5

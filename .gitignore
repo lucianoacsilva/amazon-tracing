@@ -81,3 +81,8 @@ dist
 
 # Ignores env variables file
 Backend/env.js
+
+# Caliper material
+Chaincode/caliper-workspace/networks/*
+Chaincode/caliper-workspace/caliper.log
+Chaincode/caliper-workspace/report.html
