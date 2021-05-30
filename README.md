@@ -15,19 +15,19 @@
 ## Criação e inicialização da rede Fabric
 
 - Abrir a extensão **IBM Blockchain Platform** no editor **Visual Studio Code**;
-![alt text](img/ext-button.png)
+![drawing](img/ext-button.png)
 
-- Clicar sobre **Adicionar Ambiente (*Add Environment*)**;
-![alt text](img/add-environment.png)
+- Clicar sobre o botão **Adicionar Ambiente (*Add Environment*)**, situado no canto superior direito da aba ***Fabric Environments***;
+![drawing](img/add-environment.png)
 
-- Selecionar **Criar uma nova a partir de modelo (*Create new from template*)**;
-![alt text](img/create-from-template.png)
+- Selecionar a primeira opção - **Criar uma nova a partir de modelo (*Create new from template*)**;
+![drawing](img/create-from-template.png)
 
-- Selecionar ***2 Org template (2 CAs, 2 peers, 1 channel)***;
-![alt text](img/2-org-template.png)
+- Selecionar a segunda opção - ***2 Org template (2 CAs, 2 peers, 1 channel)***;
+![drawing](img/2-org-template.png)
 
 - Digite um nome para o ambiente (guarde este, pois deverá ser usado futuramente);
-![alt text](img/enter-name.png)
+![drawing](img/enter-name.png)
 
 
 
