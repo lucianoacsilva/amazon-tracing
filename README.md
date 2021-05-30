@@ -27,7 +27,7 @@
 ![alt text](img/2-org-template.png)
 
 - Digite um nome para o ambiente (guarde este, pois deverá ser usado futuramente);
-![alt text](img/.png)
+![alt text](img/enter-name.png)
 
 
 
