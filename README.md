@@ -90,6 +90,20 @@ Na aba ***Fabric Environments***:
 - Selecioned como política de endosso ***Default (single endorser, any org)***, a padrão oferecida pela extensão.
 ![drawing](img/endorsment-policy.png)
 
+## Execução do serviço *REST*
+
+- No diretório ***Backend***, crie um arquivo denominado **env.js** utilizando como modelo **env_template.js**. Ele contém os atributos;
+    - ***envName***: nome do ambiente **Fabric** inicializado. No caso deste tutorial, **TwoOrgEnv**;
+    - ***orgName***: nome de uma organização da rede. Neste tutorial, foram criadas ***Org1*** e ***Org2***;
+    - ***identityName***: identidade presente na carteira da organização anteriormente configurada. Neste exemplo, por padrão, as duas organizações possuem as identidades ***admin*** e ***OrgXAdmin***;
+    - ***ccName***: nome do contrato inteligente, definido no arquivo ***package.json*** do diretório ***Chaincode***. Neste tutorial, por padrão, o nome escolhido é ***amazon-tracing***.
+    - ***channelName***: canal no qual foi instanciado o contrato inteligente. Neste exemplo, foi utilizado ***mychannel***.
+- Através do terminal, entre no diretório ***Backend***;
+- Execute o comando **npm run start**.
+
+**Obs.:** Os nomes dos parâmetros utilizados no exemplo podem ser modificados segundo a preferência do usuário.
+
+
 
 
 
