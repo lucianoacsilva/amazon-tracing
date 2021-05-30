@@ -62,4 +62,34 @@ Com o ambiente conectado:
 - Selecione o pacote do contrato inteligente gerado na seção anterior.
 ![drawing](img/select-package.png)
 
+### Instanciação do contrato inteligente no canal
+
+Na aba ***Fabric Environments***:
+
+- Clique sobre o botão ***+ Instantiate***, situado dentro da guia ***Instantiated***, para instanciar um novo contrato inteligente;
+![drawing](img/instantiate.png)
+
+- Caso já exista um contrato inteligente instanciado com o mesmo nome, clique sobre o já instanciado com o botão direito (dentro da guia ***Instantiated***) e em ***Upgrade Smart Contract***, que aparecerá numa caixa de diálogo;
+![drawing](img/upgrade-chaincode.png)
+
+- Selecione o pacote gerado na etapa **Encapsulamento do contrato inteligente**;
+![drawing](img/select-package.png)
+
+- No caso deste projeto, não foram programados métodos para serem acionados no momento da instanciação do contrato inteligente. Portanto, deixe em branco e aperte ***Enter***;
+![drawing](img/blank.png)
+
+- Na caixa de diálogo que surgir, selecione ***Yes*** (nela, a extensão pergunta se será utilizado um arquivo de configuração para coleções privadas);
+![drawing](img/private-collection.png)
+
+- Clique em ***Browse*** na caixa de diálogo subsequente;
+![drawing](img/browse-collection.png)
+
+- Selecione o arquivo de coleções privadas **collections.json**;
+![drawing](img/select-collection.png)
+
+- Selecioned como política de endosso ***Default (single endorser, any org)***, a padrão oferecida pela extensão.
+![drawing](img/endorsment-policy.png)
+
+
+
 
