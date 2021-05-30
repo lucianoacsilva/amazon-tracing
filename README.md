@@ -29,6 +29,21 @@
 - Digite um nome para o ambiente (guarde este, pois deverá ser usado futuramente);
 ![drawing](img/enter-name.png)
 
+## Gerenciamento do contrato inteligente
+
+### Encapsulamento do contrato inteligente
+
+Se ainda não existe um pacote do contrato inteligente gerado, proceder da seguinte forma:
+
+- Abra o ***Visual Studio Code*** da pasta ***Chaincode**;
+- Clicar sobre o botão ***More Actions***, no canto superior da aba ***Smart Contracts***;
+![drawing](img/enter-name.png)
+
+- Clicar sobre o botão ***Package Open Project*** na caixa de diálogo que surgirá.
+![drawing](img/package-open-project.png)
+
+**Obs.:** Para o correto funcionamento do processo, deve-se gerar o pacote com uma versão ainda não existente na aba ***Smart Contracts***, caso contrário, resultará em erro. Tal parâmetro é definido no arquivo **package.json**, situado na raiz do projeto.
+
 
 
 
