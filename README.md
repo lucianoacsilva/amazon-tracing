@@ -45,5 +45,21 @@ Se ainda não existe um pacote do contrato inteligente gerado, proceder da segui
 **Obs.:** Para o correto funcionamento do processo, deve-se gerar o pacote com uma versão ainda não existente na aba ***Smart Contracts***, caso contrário, resultará em erro. Tal parâmetro é definido no arquivo **package.json**, situado na raiz do projeto.
 
 
+### Instalação do contrato inteligente
+
+Assegure que a extensão esteja conectada ao ambiente ***TwoOrgEnv***. Caso não esteja, faça-o segundo  seguinte instrução:
+
+- Clique sobre o nome do ambiente ***TwoOrgEnv*** na aba ***Fabric Environments***. Isso solicitará a conexão da extensão ao ambiente automaticamente.
+
+Com o ambiente conectado:
+
+- Clique sobre o botão ***+ Install***;
+- ![drawing](img/install.png)
+
+- Selecione os *peers* nos quais será instalado o contrato inteligente (no caso, todos os *peers* da rede);
+![drawing](img/select-peers.png)
+
+- Selecione o pacote do contrato inteligente gerado na seção anterior.
+![drawing](img/select-package.png)
 
 
